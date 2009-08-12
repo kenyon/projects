@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+# Visually divides number $1 into groups of $2 numbers.
+# By Kenyon Ralph, 20090503.
+
+for (( i = $(( $1 - 1 )) ; i >= 0 ; --i ))
+do
+    echo $i
+    if [[ ( $(( $i % $2 )) -eq 0 ) && ( $i -ne 0 ) ]]
+    then
+	echo
+    fi
+done

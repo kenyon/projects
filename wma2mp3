@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for i in *.wma
+    do mplayer -ao pcm "$i" && lame --preset extreme audiodump.wav -o "`basename "$i" .wma`.mp3"
+	done
+rm -f audiodump.wav

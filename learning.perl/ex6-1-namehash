@@ -1,0 +1,21 @@
+#!/usr/bin/perl -w
+# Copyright (C) 2006 Kenyon Ralph <kralph@gmail.com>
+# chapter 6, exercise 1
+
+use strict;
+
+my %family_name;
+$family_name{"kenyon"} = "ralph";
+$family_name{"fred"} = "flintstone";
+$family_name{"barney"} = "rubble";
+$family_name{"wilma"} = "flintstone";
+$family_name{"jen"} = "connolly";
+$family_name{"doris"} = "kenyon";
+
+print "Enter first name to look up last name: ";
+chomp(my $fname = <STDIN>);
+if($family_name{$fname}) {
+    print "The last name of $fname is $family_name{$fname}.\n";
+} else {
+    print "The last name of $fname is unknown.\n";
+}

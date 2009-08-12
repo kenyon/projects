@@ -1,0 +1,8 @@
+#!/usr/bin/env perl
+# Copyright (C) 2006 Kenyon Ralph <kralph@gmail.com>
+#Learning Perl, 4th Ed., p. 16
+@lines = `perldoc -u -f atan2`;
+foreach (@lines) {
+    s/\w<([^>]+)>/\U$1/g;
+    print;
+}

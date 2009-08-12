@@ -1,0 +1,18 @@
+total 90
+drwxr-xr-x   2 root root  4096 2007-05-15 16:10 bin
+drwxr-xr-x   4 root root  2048 2007-05-06 21:48 boot
+drwxr-xr-x  19 root root 30060 2007-06-01 03:10 dev
+drwxr-xr-x  66 root root  4096 2007-06-03 22:55 etc
+lrwxrwxrwx   1 root root     8 2006-03-24 07:25 home -> usr/home
+drwxr-xr-x   8 root root  4096 2007-05-31 20:36 lib
+drwx------   2 root root 16384 2006-03-23 16:31 lost+found
+drwxr-xr-x   2 root root  4096 2007-02-14 19:29 media
+drwxr-xr-x   4 root root  4096 2006-02-13 16:03 mnt
+drwxr-xr-x   7 root root  4096 2007-04-07 10:32 opt
+dr-xr-xr-x 110 root root     0 2007-05-06 21:55 proc
+drwx------  16 root root  4096 2007-06-03 11:55 root
+drwxr-xr-x   2 root root  4096 2007-05-31 20:36 sbin
+drwxr-xr-x  11 root root     0 2007-05-06 21:55 sys
+drwxrwxrwt 107 root root 36864 2007-06-04 19:46 tmp
+drwxr-xr-x  18 root root  4096 2007-04-29 22:27 usr
+drwxr-xr-x  15 root root   368 2007-02-07 17:39 var

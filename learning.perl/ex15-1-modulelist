@@ -1,0 +1,12 @@
+#!/usr/bin/perl -w
+# Copyright (C) 2007 Kenyon Ralph <kralph@gmail.com>
+# chapter 15, exercise 1
+
+use strict;
+use lib "/home/kenyon/projects/learning.perl/modules/lib/perl5/site_perl/5.8.8";
+use Module::CoreList;
+
+my %modules = %{ $Module::CoreList::version{5.006} };
+
+print join "\n", sort keys %modules;
+print "\n";

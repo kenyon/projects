@@ -1,0 +1,25 @@
+#!/usr/bin/perl -w
+# Copyright (C) 2006 Kenyon Ralph <kralph@gmail.com>
+# chapter 9, exercise 5
+
+use strict;
+
+my %do_these;
+
+foreach (@ARGV) {
+    $do_these{$_} = 1;
+}
+
+while (<>) {
+    if (/^# Copyright/) {
+	delete $do_these{$ARGV};
+    }
+}
+
+@ARGV = sort keys %do_these;
+$^I = ".bak";
+while (<>) {
+    if ( m{^#!} ) {
+	print "$_# Copyright (C) 2006 Kenyon Ralph <kralph\@gmail.com>\n";
+    } else { print }
+}

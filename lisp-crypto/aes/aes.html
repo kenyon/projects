@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>Common Lisp AES encryption (FIPS 197, Rijndael)</title>
+</head>
+
+<body>
+<h1>Common Lisp AES encryption</h1>
+I have made two implementations of AES
+<ul>
+  <li> <a href = "aes32.lisp">aes32.lisp</a> is
+  optimized for CLs that handle 32 bits arithmetic, such as CMUCL.<br>
+  A program to make NIST test vectors is
+  <a href = "aes-nist.lisp">aes-nits.lisp</a>.
+
+  <li> <a href = "aes8.lisp">aes8.lisp</a>
+  is based on the reference implementation and uses 8 bits arithmetic. <br>
+  The performance is slow but less varying among
+  Common Lisp implementations.
+</ul>
+<p>
+Download: <a href = "aes.tgz">aes.tgz</a>.
+<br><br>
+Another AES Common Lisp implementation is made by 
+<a href="http://www.cs.rice.edu/~froydnj/">
+Nathan Froyd</a><br>
+(who is probably using the same web-designer as I do)
+<p>
+<a href="../lisp.html">Back to my lisp page</a> 
+</body>
+</html>

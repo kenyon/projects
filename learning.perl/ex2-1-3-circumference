@@ -1,0 +1,19 @@
+#!/usr/bin/perl -w
+# Copyright (C) 2006 Kenyon Ralph <kralph@gmail.com>
+# chapter 2 exercise 1, 2, 3
+
+$pi = 3.141592654;
+
+print "Enter radius: ";
+chomp($radius = <STDIN>);
+while($radius eq "") {
+    print "Enter radius: ";
+    chomp($radius = <STDIN>);
+}
+
+$circumference = 2 * $pi * $radius;
+if($circumference < 0) {
+    $circumference = 0;
+}
+
+print "Circumference of a circle with radius $radius: $circumference\n";

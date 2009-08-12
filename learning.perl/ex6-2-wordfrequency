@@ -1,0 +1,19 @@
+#!/usr/bin/perl -w
+# Copyright (C) 2006 Kenyon Ralph <kralph@gmail.com>
+# chapter 6, exercise 2
+
+use strict;
+
+#print "Enter words, one per line, ending with EOF:\n";
+chomp(my @words = <>);
+my %wordcounter;
+
+foreach (@words) {
+    $wordcounter{$_}++;
+}
+
+print "\nWord frequencies:\n";
+
+foreach (sort keys %wordcounter) {
+    print "$_: $wordcounter{$_}\n";
+}

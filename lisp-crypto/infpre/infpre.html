@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>Common Lisp infix prefix conversion</title>
+</head>
+
+<body>
+<h1>Infpre - A Common Lisp infix utility</h1>
+<a href = "infpre.lisp">Infpre</a> is a prefix <-> infix conversion tool 
+for Common Lisp. The intended use is for CL programs with long math formulas.
+<br>
+The package infpre contains:
+<ul>
+  <li> infix->prefix - function 
+  <li> prefix->infix - function
+  <li> math - macro
+  <li> !! - macro 
+</ul>
+ 
+
+<h2> How does the infix->prefix function work? </h2>
+infix->prefix takes two list arguments:
+the expression and the operators. The expression
+is just an ordinary lisp list and the operators are math symbols like + and *,
+where list order gives presedence.
+An important point is that the operators are <em>not binary</em>, 
+but list separators (like comma),
+i.e. 1 + 2 + ... is a + separated list.
+
+<br>
+Example:
+<pre> 
+% (infix->prefix '(1 + 2 * 3 + 4) '(+ *))
+(+ 1 (* 2 3) 4)
+</pre>
+
+<h2> How does the prefix->infix function work? </h2>
+Hopefully as expected.
+
+<h2>How does the math macro work?</h2>
+Works as defun, but with infix math. If name is _ then
+it works as lambda.
+<br>
+Example:
+<pre>
+% (math f (x) 
+    (let ((a 0.1))
+      (exp (-1 * a * expt x 2))))
+F
+% (f 2)
+0.67032003
+</pre>
+
+<h2>How does the !! macro work?</h2>
+It simply applies infix->prefix with standard math operators.
+Since there are no read macroes there 
+must be spaces between the operators.
+<pre>
+(!! (let ((a 42)) a - 2 * 2 * 10))
+2
+</pre>
+<br>
+<a href="../lisp.html">Back to my lisp page</a>    
+</body>
+</html>

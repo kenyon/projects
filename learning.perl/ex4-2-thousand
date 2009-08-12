@@ -1,0 +1,15 @@
+#!/usr/bin/perl -w
+# Copyright (C) 2006 Kenyon Ralph <kralph@gmail.com>
+# chapter 4 exercise 2
+
+use strict;
+
+sub total {
+    my $sum;
+    foreach (@_) {
+	$sum += $_;
+    }
+    return $sum;
+}
+
+print "Sum of numbers from 1 to 1000: ", &total(1..1000),  ".\n";

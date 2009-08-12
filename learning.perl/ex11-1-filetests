@@ -1,0 +1,37 @@
+#!/usr/bin/perl -w
+# Copyright (C) 2006 Kenyon Ralph <kralph@gmail.com>
+# chapter 11, exercise 1
+
+use strict;
+
+# takes a single filename or file handle and reports on whether it's readable,
+# writable, or executable by the effective user/group
+sub tester {
+    my $file = shift @_;
+    if (-e $file) {
+	if (-r $file) {
+	    print "$file is readable.\n";
+	} else {
+	    print "$file is not readable.\n";
+	}
+
+	if (-w $file) {
+	    print "$file is writable.\n";
+	} else {
+	    print "$file is not writable.\n";
+	}
+
+	if (-x $file) {
+	    print "$file is executable.\n";
+	} else {
+	    print "$file is not executable.\n";
+	}
+    } else {
+	print "$file does not exist.\n";
+    }
+}
+
+# main
+for (@ARGV) {
+    &tester($_);
+}

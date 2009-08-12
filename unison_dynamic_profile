@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+
+#automatically decides whether to do unison with the local hostname or remote
+#one, depending on the location, which is determined with a ping.
+
+use strict;
+use warnings;
+
+print "use unison_dynamic_grunt now!\n";
+exit;
+
+use Net::Ping;
+my $pinger = Net::Ping->new();
+
+my $local_hostname = "marine.local";
+my $remote_hostname = "marine.kenyon.homelinux.com";
+my $location;
+
+if ($pinger->ping($local_hostname)) {
+	#print "$local_hostname is alive.\n";
+	$location = "local";
+} elsif ($pinger->ping($remote_hostname)) {
+	#print "$remote_hostname is alive.\n";
+	$location = "remote";
+}
+
+$pinger->close();
+
+my $unison_command = "unison -batch marine-home-$location";
+print $unison_command . "\n";
+#exec $unison_command;

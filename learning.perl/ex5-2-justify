@@ -1,0 +1,12 @@
+#!/usr/bin/perl -w
+# Copyright (C) 2006 Kenyon Ralph <kralph@gmail.com>
+# chapter 5, exercise 2
+
+use strict;
+
+print "Enter strings on separate lines:\n";
+chomp(my @input = <>);
+print "1234567890" x 7, "12345\n";
+foreach (@input) {
+    printf "%20s\n", $_;
+}

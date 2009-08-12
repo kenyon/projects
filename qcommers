@@ -1,0 +1,7 @@
+#!/usr/bin/perl -w
+
+chomp(@lines = <STDIN>);
+foreach(@lines) {
+    print "$_" . '@qualcomm.com, ';
+}
+print "\n";

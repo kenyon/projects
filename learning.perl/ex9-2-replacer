@@ -1,0 +1,23 @@
+#!/usr/bin/perl -w
+# Copyright (C) 2006 Kenyon Ralph <kralph@gmail.com>
+# chapter 9, exercise 2
+
+use strict;
+
+my $filename = shift @ARGV;
+unless (defined $filename) {
+    die "Usage: $0 filename";
+}
+
+unless (open INPUT, "<", $filename) {
+    die "Cannot open $filename for reading: $!";
+}
+
+unless (open OUTPUT, ">", $filename . ".out") {
+    die "Cannot open $filename.out for writing: $!";
+}
+
+while (<INPUT>) {
+    s/fred/Larry/gi;
+    print OUTPUT;
+}

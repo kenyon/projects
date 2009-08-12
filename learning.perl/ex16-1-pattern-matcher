@@ -1,0 +1,37 @@
+#!/usr/bin/perl -w
+# Copyright (C) 2007 Kenyon Ralph <kralph@gmail.com>
+# chapter 16, exercise 1
+#
+# Read a list of strings from a file, one string per line, and let user
+# interactively enter patterns to test against all the strings.  For each
+# pattern, tell how many strings matched and which strings matched.  For
+# invalid patterns, report error and continue.  Blank line quits.
+
+use strict;
+
+# open $file for reading
+my $file = "sample_text.txt";
+open FILE, $file or die "couldn't open $file: $!";
+
+# make each line an element of @strings
+my @strings = <FILE>;
+#print $#strings+1 . " lines\n";
+#print "@strings";
+
+# main pattern testing loop
+while (1) {
+	print "Enter pattern or nothing to quit: ";
+	chomp(my $pattern = <STDIN>);
+	#print "pattern: $pattern\n";
+	last if $pattern eq "";
+	my @matches = eval { grep /$pattern/, @strings };
+	if ($@) {
+		print "error in pattern: $@", "try again\n";
+		next;
+	}
+	print "number of strings from the file that matched: ".($#matches+1)."\n";
+	if ($#matches+1) {
+		print "matching lines:\n";
+		print map "$_", @matches;
+	}
+}

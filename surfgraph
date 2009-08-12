@@ -1,0 +1,73 @@
+#!/usr/bin/perl
+# Copyright (C) 2007 Kenyon Ralph <kralph@gmail.com>
+# Generate bar graph of surf sessions.
+
+use warnings;
+use strict;
+use File::Spec;
+use File::HomeDir;
+use GD::Graph::bars;
+use GD::Graph::Data;
+use Date::Calc;
+use constant VERBOSE => 1;
+
+my $outfile = File::Spec->catfile(File::HomeDir->my_home, 'projects', 'surfgraph.png');
+my $surflog = File::Spec->catfile(File::HomeDir->my_home, 'docs', 'surflog');
+open(LOG, "<", $surflog) or die "couldn't open '$surflog': $!";
+my $data = GD::Graph::Data->new();
+
+# build hash with data
+my %points;
+my $ymax = 0;
+foreach my $entry (<LOG>) {
+	my ($year, $month) = ($entry =~ m/^(\d{4})(\d{2})/);
+	$month = sprintf("%.3s", Date::Calc::Month_to_Text($month));
+	++$points{"$month $year"};
+	if ($points{"$month $year"} > $ymax) { $ymax = $points{"$month $year"}; }
+}
+
+### TODO : make months with zero surf sessions appear on graph. can do this by getting the first month with data (Jan 2006), and making sure each month until now is there. if one is missing, add it to the hash.
+
+close LOG; # LOG not needed anymore, have data in %points
+
+# sorting subroutine for %points: by year then month
+sub by_date {
+	my ($ayear) = ($a =~ m/(\d{4})/);
+	my ($byear) = ($b =~ m/(\d{4})/);
+	$ayear <=> $byear
+		or Date::Calc::Decode_Month($a =~ m/(\w{3})/)
+		<=> Date::Calc::Decode_Month($b =~ m/(\w{3})/);
+}
+
+# print hash
+VERBOSE and print map "$_ => $points{$_}\n", sort by_date keys %points;
+
+# build $data from hash
+map { $data->add_point($_, $points{$_}); } sort by_date keys %points;
+
+# set up graph
+my $graph = GD::Graph::bars->new(604, 453); # Facebook's image dimensions
+my $DejaVuSans = '/usr/share/fonts/dejavu/DejaVuSans.ttf';
+$graph->set_title_font($DejaVuSans, 14);
+$graph->set_x_axis_font($DejaVuSans, 8);
+$graph->set_y_axis_font($DejaVuSans, 8);
+$graph->set_x_label_font($DejaVuSans, 12);
+$graph->set_y_label_font($DejaVuSans, 12);
+$graph->set(
+	x_label           => "Month",
+	x_label_position  => 1/2,
+	x_labels_vertical => 1,
+	y_label           => "Number of Surf Sessions",
+	title             => "Kenyon's Surfing Frequency as of ".scalar localtime(),
+	transparent       => 0,
+	dclrs             => [qw(blue)],
+	y_tick_number     => $ymax,
+	y_max_value       => $ymax,
+	y_label_skip      => 2,
+) or die $graph->error;
+
+# output graph
+my $gd = $graph->plot($data) or die $graph->error;
+open(IMG, ">", $outfile) or die $!;
+binmode IMG;
+print IMG $gd->png;
