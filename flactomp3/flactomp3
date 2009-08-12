@@ -1,21 +1,21 @@
 #!/bin/bash
-# $Header: /home/kenyon/projects/flactomp3/RCS/flactomp3,v 1.3 2005/09/18 06:41:52 kenyon Exp $
 
 # Usage: flactomp3 "directory-containing-flac-files"
 
 if [[ ! -d $1 ]] ; then
     echo "Error: directory '$1' does not exist"
-    exit
+    exit 1
 fi
 
 cd "$1"
-#echo "pwd=`pwd`"
+
 listing=`ls`
 #echo "listing $1:
 #${listing}"
 #echo
-#IFS holds word delimter characters. see the "Word Splitting" section of the
-#bash manual
+
+# IFS holds word delimter characters. see the "Word Splitting" section of the
+# bash manual
 IFS='\
 '
 inextension="flac"
