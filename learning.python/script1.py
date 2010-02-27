@@ -9,3 +9,8 @@ print(2 ** 100)             # Raise 2 to a power
 x = 'Spam!'
 
 print(x * 8)                # String repetition
+
+for i in range(1, 5):
+    print(i)
+
+print("i after = " + str(i))
