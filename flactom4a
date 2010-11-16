@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Usage: flactom4a "directory-containing-flac-files"
+
+if [[ ! -d $1 ]] ; then
+    echo "Error: directory '$1' does not exist"
+    exit 1
+fi
+
+cd "$1"
+
+listing=`ls`
+#echo "listing $1:
+#${listing}"
+#echo
+
+# IFS holds word delimter characters. see the "Word Splitting" section of the
+# bash manual
+IFS='\
+'
+inextension="flac"
+outextension="m4a"
+for infile in ${listing}; do
+    #echo "filename: $filename"
+    flac --decode --stdout "$infile" | faac -o "${infile%.$inextension}.$outextension" -
+done
