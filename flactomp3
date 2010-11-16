@@ -9,7 +9,10 @@ fi
 
 cd "$1"
 
-listing=`ls`
+inextension="flac"
+outextension="mp3"
+
+listing="$(find . -name "*.$inextension")"
 #echo "listing $1:
 #${listing}"
 #echo
@@ -18,8 +21,6 @@ listing=`ls`
 # bash manual
 IFS='\
 '
-inextension="flac"
-outextension="mp3"
 for infile in ${listing}; do
     #echo "filename: $filename"
     flac --decode --stdout "$infile" | lame --preset extreme - "${infile%.$inextension}.$outextension"
