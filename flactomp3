@@ -21,7 +21,6 @@ IFS='\
 inextension="flac"
 outextension="mp3"
 for infile in ${listing}; do
-    filename=`echo "$infile" | sed {s/\.$inextension//}`
     #echo "filename: $filename"
-    flac -dc "$infile" | lame --preset extreme - "$filename.$outextension"
+    flac --decode --stdout "$infile" | lame --preset extreme - "${infile%.$inextension}.$outextension"
 done
