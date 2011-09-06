@@ -1,27 +1,19 @@
 #!/bin/bash
 
-# Usage: flactom4a "directory-containing-flac-files"
+# Takes a FLAC file and makes an MPEG-4 audio file.
 
-if [[ ! -d $1 ]] ; then
-    echo "Error: directory '$1' does not exist"
+# Usage: flactom4a flac-file
+
+# Better to use with parallel, from the moreutils package:
+# parallel flactom4a -- *.flac
+
+if [[ ! -f $1 ]]
+then
+    echo "Error: '$1' does not exist"
     exit 1
 fi
-
-cd "$1"
 
 inextension="flac"
 outextension="m4a"
 
-listing="$(find . -name "*.$inextension")"
-#echo "listing $1:
-#${listing}"
-#echo
-
-# IFS holds word delimter characters. see the "Word Splitting" section of the
-# bash manual
-IFS='\
-'
-for infile in ${listing}; do
-    #echo "filename: $filename"
-    flac --decode --stdout "$infile" | faac -o "${infile%.$inextension}.$outextension" -
-done
+flac --decode --stdout "$1" | faac -o "$(basename "${1%.$inextension}.$outextension")" -
