@@ -1,27 +1,19 @@
 #!/bin/bash
 
-# Usage: flactomp3 "directory-containing-flac-files"
+# Takes a FLAC file and makes an MP3 audio file.
 
-if [[ ! -d $1 ]] ; then
-    echo "Error: directory '$1' does not exist"
+# Usage: flactomp3 flac-files
+
+# Better to use with parallel, from the moreutils package:
+# parallel flactomp3 -- *.flac
+
+if [[ ! -f $1 ]]
+then
+    echo "Error: '$1' does not exist"
     exit 1
 fi
-
-cd "$1"
 
 inextension="flac"
 outextension="mp3"
 
-listing="$(find . -name "*.$inextension")"
-#echo "listing $1:
-#${listing}"
-#echo
-
-# IFS holds word delimter characters. see the "Word Splitting" section of the
-# bash manual
-IFS='\
-'
-for infile in ${listing}; do
-    #echo "filename: $filename"
-    flac --decode --stdout "$infile" | lame --preset extreme - "${infile%.$inextension}.$outextension"
-done
+flac --decode --stdout "$1" | lame --preset extreme - "$(basename "${1%.$inextension}.$outextension")"
